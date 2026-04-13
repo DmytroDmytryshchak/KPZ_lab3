@@ -1,6 +1,7 @@
 ﻿using System;
 using lab03.Adapter;
 using lab03.Decorator;
+using lab03.Bridge;
 
 public class Program
 {
@@ -8,6 +9,7 @@ public class Program
     {
         Adapter();
         Decorator();
+        Bridge();
     }
     
     static void Adapter()
@@ -18,7 +20,7 @@ public class Program
         var consoleLogger = new Logger();
         consoleLogger.Log("Log message");
         consoleLogger.Warn("Warning message");
-        consoleLogger.Error("Error message\n\n");
+        consoleLogger.Error("Error message\n");
 
         
         // підзавдання 3(вивід у файл)
@@ -64,5 +66,24 @@ public class Program
         heroP = new Armor(heroP);
         Console.WriteLine(heroP.GetDescription());
         Console.WriteLine("Hero's power: " + heroP.GetPower() + "\n");
+    }
+
+    static void Bridge()
+    {
+        Console.WriteLine("\tTask 3 | Bridge");
+        
+        // Створюємо круг та робимо рендеринг векторової графіки
+        Shape circle = new Circle(new VectorRender());
+        circle.Draw();
+        
+        // Створюємо квадрат та робимо рендеринг растрової графіки
+        Shape square = new Square(new RastRender());
+        square.Draw();
+        
+        // Створюємо 2 трикутники та робимо 2 рендеренги: 1 - векторова графіка, 2 - растрова графіка 
+        Shape triangle1 = new Triangle(new VectorRender());
+        Shape triangle2 = new Triangle(new RastRender());
+        triangle1.Draw();
+        triangle2.Draw();
     }
 }
