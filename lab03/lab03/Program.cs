@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Reflection;
 using lab03.Adapter;
 using lab03.Decorator;
 using lab03.Bridge;
+using lab03.Proxy;
 
 public class Program
 {
@@ -10,6 +12,7 @@ public class Program
         Adapter();
         Decorator();
         Bridge();
+        Proxy();
     }
     
     static void Adapter()
@@ -85,5 +88,16 @@ public class Program
         Shape triangle2 = new Triangle(new RastRender());
         triangle1.Draw();
         triangle2.Draw();
+    }
+
+    static void Proxy()
+    {
+        Console.WriteLine("\n\tTask 4 | Proxy");
+        
+        // Створюємо рідер файлів та створюємо "секретні файли" з лімітованим доступом
+        SmartTextReaderInt reader = new SmartTextChecker(new SmartTextReaderLocker(new SmartTextReader(), "secret.*"));
+
+        reader.Read("log.txt");
+        reader.Read("secret.txt");
     }
 }
