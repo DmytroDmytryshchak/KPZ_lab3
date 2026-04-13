@@ -4,6 +4,7 @@ using lab03.Adapter;
 using lab03.Decorator;
 using lab03.Bridge;
 using lab03.Proxy;
+using lab03.Compon;
 
 public class Program
 {
@@ -13,6 +14,7 @@ public class Program
         Decorator();
         Bridge();
         Proxy();
+        Compon();
     }
     
     static void Adapter()
@@ -99,5 +101,27 @@ public class Program
 
         reader.Read("log.txt");
         reader.Read("secret.txt");
+    }
+
+    static void Compon()
+    {
+        Console.WriteLine("\n\tTask 5");
+        
+        // Створюємо елемент
+        var ul = new LightElementNode("ul", false, false);
+        // Створюємо дочірній елемент
+        ul.Add(new LightElementNode("li", false, false)
+        {
+            // Ініціалізуємо наш дочірній елемент
+            Children = { new LightTextNode("Item 1") }
+        });
+        // Створюємо ще один дочірній елемент
+        ul.Add(new LightElementNode("li", false, false)
+        {
+            Children = { new LightTextNode("Item 2") }
+        });
+
+        // Виводимо "наш HTML"
+        Console.WriteLine(ul.OuterHTML());
     }
 }
