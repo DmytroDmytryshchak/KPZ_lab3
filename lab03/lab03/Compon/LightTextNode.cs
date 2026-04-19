@@ -9,5 +9,9 @@ public class LightTextNode :LightNode
         this.text = text;
     }
 
-    public override string OuterHTML() => text;
+    public override string OuterHTML()
+    {
+        OnTextRendered();
+        return text;
+    }
 }

@@ -14,11 +14,20 @@ public class LightElementNode : LightNode
         Tag = tag;
         IsBlock = isBlock;
         IsSelfClosing = isSelfClosing;
+        
+        OnCreated();
     }
 
     public void Add(LightNode node)
     {
         Children.Add(node);
+        node.Inserted();
+    }
+    
+    public void Remove(LightNode node)
+    {
+        Children.Remove(node);
+        node.Removed();
     }
 
     public string InnerHTML()
@@ -26,7 +35,7 @@ public class LightElementNode : LightNode
         StringBuilder sb = new();
         foreach (var child in Children)
         {
-            sb.Append(child.OuterHTML());
+            sb.Append(child.Render());
         }
 
         return sb.ToString();
@@ -40,5 +49,20 @@ public class LightElementNode : LightNode
         }
 
         return $"<{Tag}>{InnerHTML()}</{Tag}>";
+    }
+    
+    protected override void BeforeRender()
+    {
+        Console.WriteLine($"Rendering <{Tag}>");
+    }
+    
+    protected override void OnCreated()
+    {
+        Console.WriteLine("Element created: " + Tag);
+    }
+
+    protected override void OnInserted()
+    {
+        Console.WriteLine("Element inserted: " + Tag);
     }
 }
