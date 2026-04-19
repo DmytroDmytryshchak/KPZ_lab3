@@ -121,7 +121,7 @@ public class Program
             Children = { new LightTextNode("Item 2") }
         });
 
-        // Виводимо "наш HTML"
-        Console.WriteLine(ul.OuterHTML());
+        // Випробовуємо фічу - template для виводу нашого HTML
+        Console.WriteLine(ul.Render());
     }
 }
