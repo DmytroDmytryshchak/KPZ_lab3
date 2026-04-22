@@ -53,16 +53,16 @@ public class LightElementNode : LightNode
     
     protected override void BeforeRender()
     {
-        Console.WriteLine($"Rendering <{Tag}>");
+        // Console.WriteLine($"Rendering <{Tag}>");
     }
     
     protected override void OnCreated()
     {
-        Console.WriteLine("Element created: " + Tag);
+        //Console.WriteLine("Element created: " + Tag);
     }
 
     protected override void OnInserted()
     {
-        Console.WriteLine("Element inserted: " + Tag);
+        //Console.WriteLine("Element inserted: " + Tag);
     }
 }
