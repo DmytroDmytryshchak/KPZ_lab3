@@ -5,6 +5,7 @@ using lab03.Decorator;
 using lab03.Bridge;
 using lab03.Proxy;
 using lab03.Compon;
+using lab03.Compon.Command;
 
 public class Program
 {
@@ -16,6 +17,7 @@ public class Program
         Proxy();
         Compon();
         Iterator();
+        Command();
     }
     
     static void Adapter()
@@ -151,15 +153,37 @@ public class Program
         while (iterator.HasNext())
         {
             var node = iterator.Next();
-            // Щоб не виписувались всі хуки робимо маленькі зміни через if-else перевірку
-            if (node is LightTextNode text)
-            {
-                Console.WriteLine(text.OuterHTML());
-            }
-            else if (node is LightElementNode el)
-            {
-                Console.WriteLine($"<{el.Tag}>");
-            }
+            
+            Console.WriteLine(node.OuterHTML());
+            
         }
+    }
+    
+    static void Command()
+    {
+        Console.WriteLine("\n\tTask | Command");
+
+        var manager = new CommandManager();
+
+        var ul = new LightElementNode("ul", false, false);
+
+        var li1 = new LightElementNode("li", false, false);
+        li1.Add(new LightTextNode("Item 1"));
+
+        var li2 = new LightElementNode("li", false, false);
+        li2.Add(new LightTextNode("Item 2"));
+
+        // додаємо через Command
+        manager.Execute(new AddNodeCommand(ul, li1));
+        manager.Execute(new AddNodeCommand(ul, li2));
+
+        Console.WriteLine("After adding:");
+        Console.WriteLine(ul.Render());
+
+        // Undo: видаляємо останній елемент
+        manager.Undo();
+
+        Console.WriteLine("\nAfter undo:");
+        Console.WriteLine(ul.Render());
     }
 }
