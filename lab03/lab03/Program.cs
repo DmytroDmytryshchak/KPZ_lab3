@@ -18,6 +18,7 @@ public class Program
         Compon();
         Iterator();
         Command();
+        State();
     }
     
     static void Adapter()
@@ -185,5 +186,22 @@ public class Program
 
         Console.WriteLine("\nAfter undo:");
         Console.WriteLine(ul.Render());
+    }
+    
+    static void State()
+    {
+        Console.WriteLine("\n\tTask | State");
+
+        var div = new LightElementNode("div", true, false);
+        div.Add(new LightTextNode("Example of state feature:"));
+
+        Console.WriteLine("Visible:");
+        Console.WriteLine(div.OuterHTML());
+
+        // змінюємо стан
+        div.State = new lab03.Compon.State.HiddenState();
+
+        Console.WriteLine("\nHidden:");
+        Console.WriteLine(div.OuterHTML());
     }
 }

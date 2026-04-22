@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using lab03.Compon.State;
 
 namespace lab03.Compon;
 
@@ -43,12 +44,15 @@ public class LightElementNode : LightNode
 
     public override string OuterHTML()
     {
+        /*
         if (IsSelfClosing)
         {
             return $"<{Tag}/>";
         }
 
         return $"<{Tag}>{InnerHTML()}</{Tag}>";
+        */
+        return State.Render(this);
     }
     
     protected override void BeforeRender()
@@ -64,5 +68,15 @@ public class LightElementNode : LightNode
     protected override void OnInserted()
     {
         //Console.WriteLine("Element inserted: " + Tag);
+    }
+    
+    public IElementState State = new VisibleState();
+    
+    public string DefaultRender()
+    {
+        if (IsSelfClosing)
+            return $"<{Tag}/>";
+
+        return $"<{Tag}>{InnerHTML()}</{Tag}>";
     }
 }
