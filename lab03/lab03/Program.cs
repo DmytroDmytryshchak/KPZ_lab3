@@ -15,6 +15,7 @@ public class Program
         Bridge();
         Proxy();
         Compon();
+        Iterator();
     }
     
     static void Adapter()
@@ -123,5 +124,42 @@ public class Program
 
         // Випробовуємо фічу - template для виводу нашого HTML
         Console.WriteLine(ul.Render());
+    }
+    
+    static void Iterator()
+    {
+        Console.WriteLine("\n\tTask | Iterator");
+
+        var root = new LightElementNode("div", true, false);
+
+        var ul = new LightElementNode("ul", false, false);
+
+        ul.Add(new LightElementNode("li", false, false)
+        {
+            Children = { new LightTextNode("Item 1") }
+        });
+
+        ul.Add(new LightElementNode("li", false, false)
+        {
+            Children = { new LightTextNode("Item 2") }
+        });
+
+        root.Add(ul);
+
+        var iterator = new lab03.Compon.Iterator.DepthIterator(root);
+
+        while (iterator.HasNext())
+        {
+            var node = iterator.Next();
+            // Щоб не виписувались всі хуки робимо маленькі зміни через if-else перевірку
+            if (node is LightTextNode text)
+            {
+                Console.WriteLine(text.OuterHTML());
+            }
+            else if (node is LightElementNode el)
+            {
+                Console.WriteLine($"<{el.Tag}>");
+            }
+        }
     }
 }
