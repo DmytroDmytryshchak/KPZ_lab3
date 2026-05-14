@@ -21,6 +21,7 @@ public class Program
         Command();
         State();
         Observer();
+        Strategy();
     }
     
     static void Adapter()
@@ -232,5 +233,19 @@ public class Program
 
         Console.WriteLine("\n-- Div click --");
         div.DispatchEvent("click");
+    }
+    
+    static void Strategy()
+    {
+        Console.WriteLine("\n\tTask 4 from lab04 | Strategy");
+
+        // файл з папки Images
+        var img1 = new lab03.Compon.Image("tiger.jpg");
+
+        // 🌐 мережа
+        var img2 = new lab03.Compon.Image("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+
+        Console.WriteLine(img1.Load());
+        Console.WriteLine(img2.Load());
     }
 }
