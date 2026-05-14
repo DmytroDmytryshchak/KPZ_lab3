@@ -6,6 +6,7 @@ using lab03.Bridge;
 using lab03.Proxy;
 using lab03.Compon;
 using lab03.Compon.Command;
+using lab03.Observer;
 
 public class Program
 {
@@ -19,6 +20,7 @@ public class Program
         Iterator();
         Command();
         State();
+        Observer();
     }
     
     static void Adapter()
@@ -203,5 +205,32 @@ public class Program
 
         Console.WriteLine("\nHidden:");
         Console.WriteLine(div.OuterHTML());
+    }
+    
+    static void Observer()
+    {
+        Console.WriteLine("\n\tTask 3 from lab04 | Observer");
+
+        var button = new HtmlElement("button");
+        var div = new HtmlElement("div");
+
+        var clickLogger = new ConsoleLogListener("CLICK_LOGGER");
+        var hoverLogger = new ConsoleLogListener("HOVER_LOGGER");
+
+        // підписка на події
+        button.AddEventListener("click", clickLogger);
+        button.AddEventListener("mouseover", hoverLogger);
+
+        div.AddEventListener("click", clickLogger);
+
+        // симуляція подій
+        Console.WriteLine("\n-- Button click --");
+        button.DispatchEvent("click");
+
+        Console.WriteLine("\n-- Button mouseover --");
+        button.DispatchEvent("mouseover");
+
+        Console.WriteLine("\n-- Div click --");
+        div.DispatchEvent("click");
     }
 }
